@@ -85,7 +85,7 @@ public class Graph {
             return result;
         }
 
-		public String getLable(){
+		public String getLabel(){
 
 			return label;
 

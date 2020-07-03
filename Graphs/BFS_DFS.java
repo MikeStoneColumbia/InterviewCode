@@ -1,7 +1,7 @@
 //import graph.Graph;
 import java.util.*;
 
-public class DepthFirst extends Graph{
+public class BFS_DFS extends Graph{
 
 	private static Graph relationships;
 
@@ -18,12 +18,14 @@ public class DepthFirst extends Graph{
 		relationships.addVertex("coach");
 		relationships.addEdge("Michael Stone","Elijah Stone");
 		relationships.addEdge("Michael Stone", "Joseph Stone");
+		relationships.addEdge("Tony Stone", "Christina Torres");
 		relationships.addEdge("Christina Torres", "Nicole");
 		relationships.addEdge("Michael Stone", "David Stone");
 		relationships.addEdge("Michael Stone", "Tony Stone");
 		relationships.addEdge("Michael Stone", "Christina Torres");
 
 		System.out.println(depthFirst(relationships,"Michael Stone").toString());
+		System.out.println(breadthFirst(relationships,"Michael Stone").toString());
 
 	}
 
@@ -41,7 +43,7 @@ public class DepthFirst extends Graph{
 				visited.add(vertex);
 				for(Vertex v : graph.getAdjVertices(vertex)){
 
-					vertices.push(v.getLable());
+					vertices.push(v.getLabel());
 
 				}
 
@@ -51,6 +53,30 @@ public class DepthFirst extends Graph{
 		}
 
 			return visited;
+	}
+
+	public static Set<String> breadthFirst(Graph graph, String root){
+
+		Set<String> visited = new LinkedHashSet<String>();
+		Queue<String> vertices = new LinkedList<String>();
+
+		vertices.add(root);
+		visited.add(root);
+		while(!vertices.isEmpty()){
+
+			String vertex = vertices.poll();
+			for(Vertex v : graph.getAdjVertices(vertex))
+				if(!visited.contains(v.getLabel())){
+
+					visited.add(v.getLabel());
+					vertices.add(v.getLabel());
+
+				}
+
+		}
+
+		return visited;
+
 	}
 
 }
